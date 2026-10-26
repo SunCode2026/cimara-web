@@ -76,6 +76,8 @@ export function ContactForm() {
       const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("success");
+      // Confirmación háptica breve en el momento del éxito (Android; iOS y escritorio la ignoran).
+      navigator.vibrate?.(12);
     } catch {
       setStatus("error");
     }

@@ -13,8 +13,10 @@ export function Method() {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLOListElement>(null);
   const [step, setStep] = useState(0);
+  const [mobileStep, setMobileStep] = useState(-1); // móvil: último paso alcanzado; -1 = ninguno
+  const cards = useRef<(HTMLLIElement | null)[]>([]);
 
-  useGsap(({ gsap }) => {
+  useGsap(({ gsap, ScrollTrigger }) => {
     const mm = gsap.matchMedia();
     // Escritorio: sección fijada y pasos en horizontal, vinculados al scroll.
     mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
@@ -34,6 +36,18 @@ export function Method() {
         },
       });
     });
+    // Móvil: cada tarjeta se enciende al cruzar el 65 % de la pantalla y se apaga al volver.
+    mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+      cards.current.forEach((el, i) =>
+        ScrollTrigger.create({
+          trigger: el,
+          start: "center 65%",
+          onEnter: () => setMobileStep((s) => Math.max(s, i)),
+          onLeaveBack: () => setMobileStep(i - 1),
+        }),
+      );
+    });
+    mm.add("(max-width: 1023px) and (prefers-reduced-motion: reduce)", () => setMobileStep(METHOD.length - 1));
     return () => mm.revert();
   });
 
@@ -61,14 +75,18 @@ export function Method() {
           {METHOD.map((m, i) => (
             <li
               key={m.title}
+              ref={(el) => {
+                cards.current[i] = el;
+              }}
               data-active={i <= step || undefined}
+              data-seen={i <= mobileStep || undefined}
               className="group flex shrink-0 flex-col rounded-lg border border-line bg-surface-1 p-8 lg:min-h-[26rem] lg:w-[min(30rem,38vw)] lg:p-10"
             >
               <div className="flex items-start justify-between">
-                <span className="font-display text-display text-text-3 transition-colors duration-700 lg:group-data-[active]:text-mist">
+                <span className="font-display text-display text-text-3 transition-colors duration-700 lg:group-data-[active]:text-mist max-lg:group-data-[seen]:text-mist">
                   0{i + 1}
                 </span>
-                <SummitMark lit={litFor(i)} className="w-16 lg:hidden" />
+                <SummitMark lit={i <= mobileStep ? litFor(i) : 0} cascade className="w-16 lg:hidden" />
               </div>
               <h3 className="mt-auto pt-12 text-h2">{m.title}</h3>
               <p className="mt-4 text-text-2">{m.text}</p>

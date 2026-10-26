@@ -34,6 +34,10 @@ const REPEL_R = 140;
 const REPEL_PX = 26;
 const K = 0.08; // rigidez del muelle
 const FRICTION = 0.45; // ≈ amortiguamiento crítico con K: vuelve sin rebote
+const REPEL_R_TOUCH = 110;
+const REPEL_PX_TOUCH = 22;
+const SCROLL_GAIN = 0.6; // px de deriva por px/frame de scroll
+const SCROLL_MAX = 14; // deriva máxima en px
 const MIST = "245,245,247";
 const CYAN = "47,211,245";
 
@@ -49,7 +53,14 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
     const ctx = canvas.getContext("2d")!;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const touch = matchMedia("(pointer: coarse)").matches;
-    const interactive = !reduce && !touch;
+    const interactive = !reduce; // ratón en escritorio, dedo y scroll en táctil
+    const repelR = touch ? REPEL_R_TOUCH : REPEL_R;
+    const repelPx = touch ? REPEL_PX_TOUCH : REPEL_PX;
+    let scrollV = 0; // velocidad de scroll suavizada, px/frame
+    let lastY = window.scrollY;
+    // Táctil: en el CTA final el ensamblado sigue al dedo (posición de scroll), no al reloj.
+    const scrollMode = trigger === "view" && touch && !reduce;
+    let scrollT = 0;
 
     let w = 0, h = 0, dpr = 1;
     let dots: Dot[] = [];
@@ -100,6 +111,7 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
     }
 
     function progress(d: Dot, now: number) {
+      if (scrollMode) return easeOut(Math.max(0, Math.min(1, (scrollT - (d.delay / 1140) * 0.5) / 0.5)));
       if (reduce) return start < 0 ? 0 : 1;
       if (start < 0) return 0;
       return easeOut(Math.max(0, Math.min(1, (now - start - d.delay) / DURATION)));
@@ -108,8 +120,15 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
     function frame(now: number) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
+      if (scrollMode) {
+        const top = canvas.getBoundingClientRect().top;
+        scrollT = Math.max(0, Math.min(1, (innerHeight * 0.9 - top) / (innerHeight * 0.7)));
+      }
       let moving = start >= 0 && now - start < DURATION + 1400;
-      const assembled = start < 0 ? 0 : easeOut(Math.min(1, (now - start) / (DURATION + 800)));
+      const assembled = scrollMode ? easeOut(scrollT) : start < 0 ? 0 : easeOut(Math.min(1, (now - start) / (DURATION + 800)));
+      scrollV *= 0.85; // la deriva se apaga sola al dejar de desplazar
+      if (Math.abs(scrollV) > 0.05) moving = true;
+      const drift = Math.max(-SCROLL_MAX, Math.min(SCROLL_MAX, scrollV * SCROLL_GAIN));
 
       let cima: { x: number; y: number; r: number; p: number } | null = null;
       for (const d of dots) {
@@ -121,11 +140,12 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
           let gx = 0, gy = 0, g = 0;
           const dx = bx - mouse.x, dy = by - mouse.y;
           const dist = Math.hypot(dx, dy);
-          if (dist < REPEL_R && dist > 0.001) {
-            const f = (1 - dist / REPEL_R) ** 2;
-            const push = REPEL_PX * f * (d.summit ? 0.3 * p + (1 - p) : 1);
+          if (dist < repelR && dist > 0.001) {
+            const f = (1 - dist / repelR) ** 2;
+            const push = repelPx * f * (d.summit ? 0.3 * p + (1 - p) : 1);
             gx = (dx / dist) * push; gy = (dy / dist) * push; g = f;
           }
+          gy += drift * (d.fr / 1.5) * (d.summit ? 1 - p : 1);
           d.vx = (d.vx + (gx - d.ox) * K) * FRICTION;
           d.vy = (d.vy + (gy - d.oy) * K) * FRICTION;
           d.ox += d.vx; d.oy += d.vy;
@@ -190,7 +210,7 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
       if (visible) {
-        if (trigger === "view" && e.intersectionRatio > 0.35) begin();
+        if (trigger === "view" && !scrollMode && e.intersectionRatio > 0.35) begin();
         wake();
       }
     }, { threshold: [0, 0.35] });
@@ -200,16 +220,29 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
     let idle = 0;
     if (trigger === "load") idle = window.setTimeout(begin, 250);
 
-    const onMove = (e: PointerEvent) => {
+    const at = (x: number, y: number) => {
       const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left;
-      mouse.y = e.clientY - r.top;
+      mouse.x = x - r.left;
+      mouse.y = y - r.top;
       wake();
     };
+    const onMove = (e: PointerEvent) => { if (e.pointerType === "mouse") at(e.clientX, e.clientY); };
+    const onTouch = (e: TouchEvent) => { const t = e.touches[0]; if (t) at(t.clientX, t.clientY); };
     const onLeave = () => { mouse.x = mouse.y = -9999; wake(); };
+    const onScroll = () => {
+      const y = window.scrollY;
+      scrollV = scrollV * 0.5 + (y - lastY) * 0.5;
+      lastY = y;
+      wake();
+    };
     if (interactive) {
       window.addEventListener("pointermove", onMove, { passive: true });
       document.documentElement.addEventListener("pointerleave", onLeave);
+      window.addEventListener("touchstart", onTouch, { passive: true });
+      window.addEventListener("touchmove", onTouch, { passive: true });
+      window.addEventListener("touchend", onLeave, { passive: true });
+      window.addEventListener("touchcancel", onLeave, { passive: true });
+      window.addEventListener("scroll", onScroll, { passive: true });
     }
 
     return () => {
@@ -219,6 +252,11 @@ export function DotField({ anchor, trigger = "load", spacing = 30, className = "
       io.disconnect();
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("touchend", onLeave);
+      window.removeEventListener("touchcancel", onLeave);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [trigger, spacing]);
 

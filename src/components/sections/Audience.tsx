@@ -18,7 +18,7 @@ export function Audience() {
               <article className="flex h-full flex-col rounded-lg border border-line bg-surface-1 p-8 lg:p-12">
                 <h3 className="text-h1">{a.title}</h3>
                 <p className="mt-5 max-w-[30rem] text-lead text-text-2">{a.text}</p>
-                <ul className="mt-auto space-y-3 pt-12">
+                <ul data-stagger className="mt-auto space-y-3 pt-12">
                   {a.points.map((p) => (
                     <li key={p} className="flex items-baseline gap-3 border-t border-line pt-3">
                       <span aria-hidden className="size-1.5 shrink-0 translate-y-[-0.15em] rounded-full bg-mist" />

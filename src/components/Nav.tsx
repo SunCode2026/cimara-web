@@ -93,7 +93,7 @@ export function Nav() {
         aria-label="Menú"
         inert={!open}
         data-open={open || undefined}
-        className="group/menu invisible fixed inset-0 z-40 bg-ink opacity-0 transition-[opacity,visibility] delay-150 duration-300 ease-out data-[open]:visible data-[open]:opacity-100 data-[open]:delay-0 data-[open]:duration-[400ms] md:hidden"
+        className="group/menu invisible fixed inset-0 z-40 bg-ink opacity-0 transition-[opacity,visibility] delay-100 duration-200 ease-out data-[open]:visible data-[open]:opacity-100 data-[open]:delay-0 data-[open]:duration-[400ms] md:hidden"
       >
         <div className="wrap flex h-full flex-col justify-between pt-28 pb-10">
           <ul className="flex flex-col gap-2">
@@ -101,7 +101,7 @@ export function Nav() {
               <li key={item.href} className="overflow-hidden">
                 <div
                   style={open ? { transitionDelay: `${80 + i * 50}ms` } : undefined}
-                  className="translate-y-full transition-transform duration-300 ease-in group-data-[open]/menu:translate-y-0 group-data-[open]/menu:duration-[800ms] group-data-[open]/menu:ease-out"
+                  className="translate-y-full transition-transform duration-200 ease-out group-data-[open]/menu:translate-y-0 group-data-[open]/menu:duration-[800ms] group-data-[open]/menu:ease-out"
                 >
                   <Link href={item.href} onClick={() => setOpen(false)} className="block py-1 font-display text-h1 font-medium">
                     {item.label}
@@ -110,7 +110,7 @@ export function Nav() {
               </li>
             ))}
           </ul>
-          <div className="flex translate-y-4 flex-col gap-6 opacity-0 transition-[opacity,translate] duration-200 group-data-[open]/menu:translate-y-0 group-data-[open]/menu:opacity-100 group-data-[open]/menu:delay-[350ms] group-data-[open]/menu:duration-[800ms] group-data-[open]/menu:ease-out">
+          <div className="flex translate-y-4 flex-col gap-6 opacity-0 transition-[opacity,translate] duration-200 ease-out group-data-[open]/menu:translate-y-0 group-data-[open]/menu:opacity-100 group-data-[open]/menu:delay-[350ms] group-data-[open]/menu:duration-[800ms] group-data-[open]/menu:ease-out">
             <Button href="/contacto" onClick={() => setOpen(false)} className="w-full">
               Agenda una consultoría
             </Button>

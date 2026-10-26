@@ -117,11 +117,11 @@ export function Problem() {
                 className="group flex flex-col justify-center border-t border-line py-12 lg:min-h-[80svh] lg:border-0 lg:py-0"
               >
                 <div className="mb-8 aspect-square w-40 lg:hidden">
-                  <Viz state={i + 1} />
+                  <Viz state={active >= i + 1 ? i + 1 : 0} />
                 </div>
-                <p className="label transition-colors duration-500 lg:group-data-[active]:text-cyan">0{i + 1}</p>
-                <h3 className="mt-4 text-h2 transition-colors duration-500 lg:text-text-3 lg:group-data-[active]:text-mist">{p.title}</h3>
-                <p className="mt-4 max-w-[28rem] text-text-2 transition-colors duration-500 lg:text-text-3 lg:group-data-[active]:text-text-2">
+                <p className="label transition-colors duration-500 group-data-[active]:text-cyan">0{i + 1}</p>
+                <h3 className="mt-4 text-h2 text-text-3 transition-colors duration-500 group-data-[active]:text-mist">{p.title}</h3>
+                <p className="mt-4 max-w-[28rem] text-text-3 transition-colors duration-500 group-data-[active]:text-text-2">
                   {p.text}
                 </p>
               </li>
