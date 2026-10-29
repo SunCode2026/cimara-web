@@ -35,7 +35,7 @@ export function Hero() {
   });
 
   return (
-    <section ref={root} aria-labelledby="hero-title" className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden">
+    <section ref={root} aria-labelledby="hero-title" className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden lg:pt-32">
       <DotField anchor={(w, h) => heroAnchor(w, h, slot.current)} trigger="load" className="-z-10" />
       {/* Fundido inferior: el campo se disuelve hacia la siguiente sección. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-b from-transparent to-ink" />
