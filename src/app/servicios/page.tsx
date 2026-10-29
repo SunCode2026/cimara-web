@@ -1,11 +1,12 @@
-import { pageMeta } from "@/lib/seo";
+import { breadcrumb, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { SERVICES } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { ServiceIndex } from "@/components/ServiceIndex";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/ui";
 
-export const metadata = pageMeta("Servicios", "Automatización de procesos, agentes y asistentes de IA, integración con tus herramientas, análisis de datos y seguimiento post-implantación.", "/servicios");
+export const metadata = pageMeta("Servicios de IA y automatización para pymes", "Automatización de procesos, agentes de IA, integración con tu ERP y CRM, análisis de datos y seguimiento post-implantación para pymes de toda España.", "/servicios");
 
 function List({ title, items }: { title: string; items: string[] }) {
   return (
@@ -26,6 +27,7 @@ function List({ title, items }: { title: string; items: string[] }) {
 export default function ServiciosPage() {
   return (
     <>
+      <JsonLd data={breadcrumb("Servicios", "/servicios")} />
       <PageHero
         label="Servicios"
         title="Sistemas útiles, no demos."

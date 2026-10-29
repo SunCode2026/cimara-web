@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { breadcrumb } from "@/lib/seo";
+import { JsonLd } from "./JsonLd";
 
 /** Dato legal pendiente de confirmar por el cliente. Se ve a propósito: no puede publicarse así. */
 export function Pending({ children }: { children: ReactNode }) {
@@ -39,6 +41,7 @@ export function LegalPage({ title, updated, current, children }: { title: string
         </nav>
       </aside>
       <article className="lg:col-span-7 lg:col-start-5">
+        <JsonLd data={breadcrumb(title, current)} />
         <p className="label">Legal</p>
         <h1 className="mt-5 text-h1">{title}</h1>
         <p className="mt-4 text-small text-text-3">Última actualización: {updated}</p>

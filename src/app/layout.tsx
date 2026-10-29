@@ -12,13 +12,13 @@ const interTight = Inter_Tight({ subsets: ["latin"], weight: ["500", "600"], var
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: `${SITE.name} · Consultoría de IA y automatización`, template: `%s · ${SITE.name}` },
+  title: { default: `Consultoría de IA para pymes en España · ${SITE.name}`, template: `%s · ${SITE.name}` },
   description: SITE.description,
   alternates: { canonical: "/" },
   openGraph: {
     ...OG_BASE,
     url: "/",
-    title: `${SITE.name} · Consultoría de IA y automatización`,
+    title: `Consultoría de IA para pymes en España · ${SITE.name}`,
     description: SITE.description,
   },
   twitter: { card: "summary_large_image" },
@@ -29,7 +29,7 @@ export const viewport: Viewport = { themeColor: "#07080B", colorScheme: "dark" }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${inter.variable} ${interTight.variable}`}>
+    <html lang="es-ES" className={`${inter.variable} ${interTight.variable}`}>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ORGANIZATION) }} />
         <a

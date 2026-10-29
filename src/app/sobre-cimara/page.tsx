@@ -1,10 +1,11 @@
-import { pageMeta } from "@/lib/seo";
+import { breadcrumb, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { SummitScrub } from "@/components/SummitScrub";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/ui";
 
-export const metadata = pageMeta("Sobre CIMARA", "Consultoría de inteligencia artificial y automatización. IA aplicada con criterio: sistemas útiles, medibles y pensados para el día a día de cada negocio.", "/sobre-cimara");
+export const metadata = pageMeta("Sobre nosotros: consultoría de IA para pymes", "CIMARA es una consultoría de IA y automatización para pymes en España. IA aplicada con criterio: sistemas útiles, medibles y pensados para el día a día.", "/sobre-cimara");
 
 // Propósito, promesa y personalidad: Manual de identidad 1.0, apartado 01.
 const PILLARS = [
@@ -24,6 +25,7 @@ const PRINCIPLES = [
 export default function SobrePage() {
   return (
     <>
+      <JsonLd data={breadcrumb("Sobre CIMARA", "/sobre-cimara")} />
       <PageHero
         label="Sobre CIMARA"
         title={

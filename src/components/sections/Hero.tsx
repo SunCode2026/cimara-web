@@ -43,18 +43,19 @@ export function Hero() {
       {/* Hueco para la cima en móvil, entre la navegación y el titular. */}
       <div ref={slot} aria-hidden className="min-h-[40svh] flex-1 lg:hidden" />
       <div ref={content} className="wrap pb-16 md:pb-24">
-        <p className="label animate-rise" style={rise(100)}>
-          Consultoría de IA y automatización
-        </p>
-        <h1 id="hero-title" className="mt-6 max-w-[11ch] text-display-xl">
+        {/* SEO: la H1 lleva la búsqueda principal con el aspecto de etiqueta; el claim de marca se mantiene como titular visual. */}
+        <h1 id="hero-title" className="label font-sans [word-spacing:normal] animate-rise" style={rise(100)}>
+          Consultoría de IA y automatización para pymes
+        </h1>
+        <p className="mt-6 max-w-[11ch] font-display text-display-xl font-medium text-balance">
           <span className="block animate-rise-y" style={rise(0)}>De los datos</span>
           <span className="block animate-rise-y" style={rise(60)}>
             a la decisión<span className="cima-dot">.</span>
           </span>
-        </h1>
+        </p>
         <p className="mt-8 max-w-[36rem] text-lead text-text-2 animate-rise" style={rise(380)}>
-          Automatizamos procesos e incorporamos sistemas de IA útiles en pymes. Menos tareas repetitivas. Más
-          tiempo para lo que hace crecer tu negocio.
+          Automatizamos procesos e incorporamos sistemas de IA útiles en pymes de toda España. Menos tareas repetitivas.
+          Más tiempo para lo que hace crecer tu negocio.
         </p>
         <div className="mt-10 flex flex-wrap gap-3 animate-rise" style={rise(480)}>
           <Button href="/#contacto">Agenda una consultoría</Button>

@@ -7,7 +7,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/company/cimara", // PENDIENTE: confirmar URL
   claim: "De los datos a la decisión.",
   description:
-    "Consultoría de inteligencia artificial y automatización. Automatizamos procesos e incorporamos sistemas de IA útiles y medibles en pymes.",
+    "Consultoría de IA para pymes en España. Automatizamos procesos, creamos agentes de IA y los integramos con tus herramientas, con resultados que se miden.",
 };
 
 export const NAV = [

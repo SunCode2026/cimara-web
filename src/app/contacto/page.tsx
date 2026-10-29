@@ -1,11 +1,12 @@
-import { pageMeta } from "@/lib/seo";
+import { breadcrumb, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { ContactForm } from "@/components/ContactForm";
 import { SummitMark } from "@/components/SummitMark";
 import { Reveal } from "@/components/ui";
 
-export const metadata = pageMeta("Contacto", "Cuéntanos qué procesos te quitan tiempo. Agenda una consultoría con CIMARA.", "/contacto");
+export const metadata = pageMeta("Contacto: agenda una consultoría de IA", "Cuéntanos qué procesos te quitan tiempo y agenda una primera consultoría de IA para tu pyme. Te decimos dónde la IA aporta valor y dónde no merece la pena.", "/contacto");
 
 const NEXT_STEPS = [
   { title: "Leemos tu mensaje", text: "Una persona del equipo revisa lo que nos cuentas. Sin respuestas automáticas." },
@@ -16,6 +17,7 @@ const NEXT_STEPS = [
 export default function ContactoPage() {
   return (
     <>
+      <JsonLd data={breadcrumb("Contacto", "/contacto")} />
       <PageHero
         label="Contacto"
         title={

@@ -34,7 +34,7 @@ export function Footer() {
       <div className="wrap grid gap-16 py-20 md:grid-cols-12 md:gap-6">
         <div className="md:col-span-4">
           <Image src="/brand/cimara-horizontal.svg" alt="CIMARA" width={144} height={49} />
-          <p className="mt-6 max-w-[18rem] text-small text-text-2">{SITE.claim} Consultoría de IA y automatización para empresas.</p>
+          <p className="mt-6 max-w-[18rem] text-small text-text-2">{SITE.claim} Consultoría de IA y automatización para pymes en España.</p>
           <a href={`mailto:${SITE.email}`} className="mt-6 inline-block text-small text-mist underline-offset-4 hover:underline">
             {SITE.email}
           </a>

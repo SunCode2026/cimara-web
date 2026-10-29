@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FAQS, SERVICES, SITE } from "./content";
+import { COMPANY } from "./legal";
 
 /** Base de Open Graph: Next no fusiona `openGraph` entre layout y página, así que cada página la repite entera. */
 export const OG_BASE: NonNullable<Metadata["openGraph"]> & { type: "website" } = {
@@ -19,6 +20,9 @@ export function pageMeta(title: string, description: string, path: string): Meta
   };
 }
 
+/** Fecha de la última revisión del contenido, para `lastmod` del sitemap. Actualizar al cambiar textos. */
+export const CONTENT_UPDATED = "2026-10-29";
+
 /** Rutas indexables, para el sitemap. */
 export const ROUTES = ["/", "/servicios", "/sobre-cimara", "/contacto", "/aviso-legal", "/privacidad", "/cookies"];
 
@@ -29,7 +33,8 @@ export const ORGANIZATION = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      // Consultoría que presta servicio en toda España (sin dirección pública todavía: se añade al confirmarla en legal.ts).
+      "@type": ["Organization", "ProfessionalService"],
       "@id": `${SITE.url}/#organization`,
       name: SITE.name,
       url: SITE.url,
@@ -37,7 +42,9 @@ export const ORGANIZATION = {
       description: SITE.description,
       email: SITE.email,
       sameAs: [SITE.linkedin],
-      knowsAbout: ["Inteligencia artificial", "Automatización de procesos", "Análisis de datos"],
+      areaServed: { "@type": "Country", name: "España" },
+      ...(COMPANY.address && { address: COMPANY.address }),
+      knowsAbout: ["Inteligencia artificial", "Automatización de procesos", "Agentes de IA", "Análisis de datos", "Digitalización de pymes"],
       makesOffer: SERVICES.map((s) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: s.title, description: s.text, url: `${SITE.url}/servicios#${s.slug}` },
@@ -59,3 +66,13 @@ export const FAQ_PAGE = {
   "@type": "FAQPage",
   mainEntity: FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
 };
+
+/** Migas de pan de una página interior (Inicio › página). */
+export const breadcrumb = (name: string, path: string) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
+    { "@type": "ListItem", position: 2, name, item: `${SITE.url}${path}` },
+  ],
+});
