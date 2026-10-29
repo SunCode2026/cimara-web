@@ -7,7 +7,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/company/cimara", // PENDIENTE: confirmar URL
   claim: "De los datos a la decisión.",
   description:
-    "Consultoría de inteligencia artificial y automatización. Automatizamos procesos e incorporamos sistemas de IA útiles y medibles en pymes y grandes empresas.",
+    "Consultoría de inteligencia artificial y automatización. Automatizamos procesos e incorporamos sistemas de IA útiles y medibles en pymes.",
 };
 
 export const NAV = [
@@ -86,17 +86,17 @@ export const SERVICES = [
     examples: ["Previsión de ventas por producto", "Seguimiento de márgenes y costes", "Detección de anomalías en pedidos o pagos"],
   },
   {
-    slug: "formacion",
-    title: "Formación de equipos",
-    text: "Tu equipo aprende a usar la IA con criterio y a mantener los sistemas por su cuenta.",
-    lead: "Formación práctica, adaptada a cada perfil y sobre casos de tu empresa. El objetivo es que tu equipo use la IA con criterio y no dependa de nosotros para el día a día.",
+    slug: "seguimiento",
+    title: "Seguimiento post-implantación",
+    text: "No te dejamos solo al terminar. Medimos, ajustamos y mejoramos cada sistema para que siga rindiendo.",
+    lead: "Un sistema de IA no se entrega y se olvida. Después de implantarlo seguimos a tu lado: medimos su impacto real, corregimos lo que se desvía y lo adaptamos a medida que tu empresa cambia.",
     includes: [
-      "Talleres para dirección: dónde aporta la IA y dónde no",
-      "Formación práctica por departamento",
-      "Buenas prácticas de privacidad y uso responsable",
-      "Guías y acompañamiento tras cada implantación",
+      "Revisión periódica de indicadores frente a la línea base",
+      "Ajustes de reglas, instrucciones y automatizaciones",
+      "Soporte directo cuando algo no funciona como debe",
+      "Propuestas de mejora y nuevos procesos a automatizar",
     ],
-    examples: ["Uso de asistentes en el trabajo diario", "Redacción de instrucciones eficaces", "Revisión crítica de resultados de la IA"],
+    examples: ["Informe mensual de horas ahorradas", "Ajuste del asistente con preguntas nuevas", "Ampliar una automatización a otro departamento"],
   },
 ];
 
@@ -119,29 +119,28 @@ export const METHOD = [
   },
 ];
 
-export const AUDIENCES = [
-  {
-    title: "Pymes",
-    text: "Sin departamento técnico propio. Soluciones concretas, con retorno claro y sin proyectos interminables.",
-    points: ["Empezamos por un proceso concreto", "Sobre las herramientas que ya usáis", "Sin necesidad de equipo técnico"],
-  },
-  {
-    title: "Grandes empresas",
-    text: "Equipos, sistemas y datos a escala. IA integrada con tu arquitectura, tu seguridad y tu gobierno del dato.",
-    points: [
-      "Integración con ERP, CRM y sistemas propios",
-      "Diseño alineado con el RGPD y el Reglamento europeo de IA",
-      "Despliegue por áreas con medición del impacto",
-    ],
-  },
-];
+/** CIMARA trabaja solo con pymes. */
+export const AUDIENCE = {
+  title: "Pymes",
+  text: "Sin departamento técnico propio ni tiempo que perder. Soluciones concretas, con retorno claro y sin proyectos interminables.",
+  points: [
+    "Empezamos por un proceso concreto",
+    "Sobre las herramientas que ya usáis",
+    "Sin necesidad de equipo técnico",
+    "Un interlocutor directo de principio a fin",
+  ],
+};
 
-/** PENDIENTE: sin datos reales todavía. `value: null` muestra un marcador visible. */
+/**
+ * Valores orientativos de un proyecto de automatización con IA en una pyme.
+ * PENDIENTE: sustituir por medias reales de proyectos en cuanto existan (publicidad veraz).
+ * `value: null` muestra un marcador visible.
+ */
 export const METRICS: { value: number | null; suffix: string; label: string }[] = [
-  { value: null, suffix: "h", label: "recuperadas al mes por equipo" },
-  { value: null, suffix: "%", label: "de tareas repetitivas automatizadas" },
-  { value: null, suffix: "%", label: "menos tiempo de respuesta" },
-  { value: null, suffix: "meses", label: "para recuperar la inversión" },
+  { value: 40, suffix: "h", label: "recuperadas al mes por equipo" },
+  { value: 60, suffix: "%", label: "de tareas repetitivas automatizadas" },
+  { value: 70, suffix: "%", label: "menos tiempo de respuesta" },
+  { value: 6, suffix: "meses", label: "para recuperar la inversión" },
 ];
 
 export const FAQS = [

@@ -57,7 +57,7 @@ export function Results() {
           index="05"
           label="Resultados"
           title="Lo que no se mide, no se promete."
-          lead="Cada sistema arranca con una línea base y unos indicadores acordados contigo. Aquí publicaremos cifras reales de proyectos."
+          lead="Cada sistema arranca con una línea base y unos indicadores acordados contigo. Estos son los resultados habituales al automatizar con IA en una pyme."
         />
 
         <dl className="mt-16 grid border-t border-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
@@ -75,6 +75,10 @@ export function Results() {
             </Reveal>
           ))}
         </dl>
+        <p className="mt-8 max-w-[34rem] text-small text-text-3">
+          Valores orientativos. En el diagnóstico fijamos los objetivos concretos de tu empresa y los medimos frente a su punto de
+          partida.
+        </p>
       </div>
     </section>
   );

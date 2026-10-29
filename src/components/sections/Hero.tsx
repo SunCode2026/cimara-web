@@ -53,7 +53,7 @@ export function Hero() {
           </span>
         </h1>
         <p className="mt-8 max-w-[36rem] text-lead text-text-2 animate-rise" style={rise(380)}>
-          Automatizamos procesos e incorporamos sistemas de IA útiles en empresas de cualquier tamaño. Menos tareas repetitivas. Más
+          Automatizamos procesos e incorporamos sistemas de IA útiles en pymes. Menos tareas repetitivas. Más
           tiempo para lo que hace crecer tu negocio.
         </p>
         <div className="mt-10 flex flex-wrap gap-3 animate-rise" style={rise(480)}>
@@ -62,6 +62,20 @@ export function Hero() {
             Cómo trabajamos
           </Button>
         </div>
+        {/* Acceso directo al FAQ: discreto, para no competir con la llamada principal. */}
+        <a
+          href="#faq"
+          className="group mt-8 inline-flex items-center gap-3 rounded-full text-small text-text-2 transition-colors duration-200 hover:text-mist animate-rise"
+          style={rise(560)}
+        >
+          <span
+            aria-hidden
+            className="grid size-9 place-items-center rounded-full shadow-[inset_0_0_0_1px_var(--color-line-strong)] transition-[translate,background-color] duration-300 ease-out group-hover:translate-y-0.5 group-hover:bg-surface-2 group-active:scale-[0.95]"
+          >
+            ↓
+          </span>
+          ¿Dudas? Preguntas frecuentes
+        </a>
       </div>
     </section>
   );

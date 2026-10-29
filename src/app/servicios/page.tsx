@@ -5,7 +5,7 @@ import { ServiceIndex } from "@/components/ServiceIndex";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/ui";
 
-export const metadata = pageMeta("Servicios", "Automatización de procesos, agentes y asistentes de IA, integración con tus herramientas, análisis de datos y formación de equipos.", "/servicios");
+export const metadata = pageMeta("Servicios", "Automatización de procesos, agentes y asistentes de IA, integración con tus herramientas, análisis de datos y seguimiento post-implantación.", "/servicios");
 
 function List({ title, items }: { title: string; items: string[] }) {
   return (

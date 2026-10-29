@@ -31,7 +31,7 @@ export default function SobrePage() {
             IA aplicada con criterio<span className="cima-dot">.</span>
           </>
         }
-        lead="Somos una consultoría de inteligencia artificial y automatización. Ayudamos a empresas, desde pymes hasta grandes organizaciones, a incorporar sistemas útiles que se notan en el día a día."
+        lead="Somos una consultoría de inteligencia artificial y automatización. Ayudamos a pymes a incorporar sistemas útiles que se notan en el día a día."
       />
 
       <section aria-labelledby="nombre-title" className="wrap section-y grid items-center gap-16 border-t border-line lg:grid-cols-12 lg:gap-6">
